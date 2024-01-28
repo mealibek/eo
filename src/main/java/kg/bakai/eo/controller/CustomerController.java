@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
@@ -21,10 +23,12 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<String> saveCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
         try {
             customerService.saveCustomer(customerDTO);
             return ResponseEntity.ok("Customer saved successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving customer");

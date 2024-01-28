@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDate;
 
@@ -24,8 +25,10 @@ public class Customer {
     @Column(name = "customer_type_id")
     private Integer customerTypeId;
 
+    @NotNull
     private String surname;
 
+    @NotNull
     @Column(name = "customer_name")
     private String customerName;
 
@@ -33,7 +36,8 @@ public class Customer {
 
     private Byte sex;
 
-    @Column(name = "identification_number")
+    @NotNull
+    @Column(name = "identification_number", unique = true)
     private String identificationNumber;
 
     @Column(name = "nationality_id")
