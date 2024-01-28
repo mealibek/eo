@@ -32,7 +32,23 @@ public class CustomerService {
     }
 
     public void saveCustomer(CustomerDTO customerDTO) {
+        // Проверка наличия identificationNumber
+        if (customerDTO.getIdentificationNumber() == null) {
+            throw new IllegalArgumentException("Identification number must not be null");
+        }
+
+        if (customerDTO.getSurname() == null || customerDTO.getSurname().isEmpty()) {
+            throw new IllegalArgumentException("Surname must not be null or empty");
+        }
+
+        if (customerDTO.getCustomerName() == null || customerDTO.getCustomerName().isEmpty()) {
+            throw new IllegalArgumentException("Customer name must not be null or empty");
+        }
+
         Customer customer = modelMapper.map(customerDTO, Customer.class);
+
         customerRepository.save(customer);
     }
+
+
 }
