@@ -10,6 +10,7 @@ public class EoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EoApplication.class, args);
+			  
 	}
 
 }
