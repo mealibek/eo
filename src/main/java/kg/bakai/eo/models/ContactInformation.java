@@ -18,7 +18,7 @@ public class ContactInformation {
     @SequenceGenerator(name = "contact_info_id_seq", sequenceName = "contact_info_id_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 

@@ -20,7 +20,7 @@ public class WorkInformation {
     @SequenceGenerator(name = "work_info_id_seq", sequenceName = "work_info_id_seq", allocationSize = 1)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
