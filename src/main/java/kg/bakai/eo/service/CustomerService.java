@@ -1,10 +1,10 @@
 package kg.bakai.eo.service;
 
 import jakarta.transaction.Transactional;
-import kg.bakai.eo.dto.AddressInfoDTO;
+import kg.bakai.eo.dto.AddressInfoDto;
 import kg.bakai.eo.dto.AllDTO;
 import kg.bakai.eo.dto.CustomerDTO;
-import kg.bakai.eo.dto.WorkInformationDTO;
+import kg.bakai.eo.dto.WorkInformationDto;
 import kg.bakai.eo.models.AddressInfo;
 import kg.bakai.eo.models.Customer;
 import kg.bakai.eo.models.WorkInformation;
@@ -13,7 +13,6 @@ import kg.bakai.eo.repository.WorkInformationRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,7 +34,7 @@ public class CustomerService {
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
 
         // Ignore conflicting fields
-        modelMapper.typeMap(AddressInfoDTO.class, AddressInfo.class)
+        modelMapper.typeMap(AddressInfoDto.class, AddressInfo.class)
                 .addMappings(mapper -> mapper.skip(AddressInfo::setId));
     }
 
@@ -49,14 +48,14 @@ public class CustomerService {
 
     }
 
-    private void saveAddressInfo(AddressInfoDTO addressInfoDTO) {
+    private void saveAddressInfo(AddressInfoDto addressInfoDTO) {
         if (addressInfoDTO != null) {
             AddressInfo addressInfo = modelMapper.map(addressInfoDTO, AddressInfo.class);
 
         }
     }
 
-    private void saveWorkInformation(WorkInformationDTO workInformationDTO, Customer customer) {
+    private void saveWorkInformation(WorkInformationDto workInformationDTO, Customer customer) {
         if (workInformationDTO != null) {
             WorkInformation workInformation = modelMapper.map(workInformationDTO, WorkInformation.class);
             workInformation.setCustomer(customer); // устанавливаем связь с Customer
