@@ -2,8 +2,8 @@ package kg.bakai.eo.service;
 
 import jakarta.transaction.Transactional;
 import kg.bakai.eo.dto.AddressInfoDto;
-import kg.bakai.eo.dto.AllDTO;
-import kg.bakai.eo.dto.CustomerDTO;
+import kg.bakai.eo.dto.AllDto;
+import kg.bakai.eo.dto.CustomerDto;
 import kg.bakai.eo.dto.WorkInformationDto;
 import kg.bakai.eo.models.AddressInfo;
 import kg.bakai.eo.models.Customer;
@@ -23,6 +23,7 @@ public class CustomerService {
 
     private final ModelMapper modelMapper;
 
+
     public CustomerService(CustomerRepository customerRepository, WorkInformationRepository workInformationRepository, ModelMapper modelMapper) {
         this.customerRepository = customerRepository;
         this.workInformationRepository = workInformationRepository;
@@ -39,34 +40,34 @@ public class CustomerService {
     }
 
     @Transactional
-    public void saveCustomerData(AllDTO customerDTO) {
-        Customer customer = modelMapper.map(customerDTO.getCustomerDTO(), Customer.class);
+    public void saveCustomerData(AllDto customerDto) {
+        Customer customer = modelMapper.map(customerDto.customerDto(), Customer.class);
         customerRepository.save(customer);
 
-        saveWorkInformation(customerDTO.getWorkInformation(), customer);
+        saveWorkInformation(customerDto.workInformationDto(), customer);
 
 
     }
 
-    private void saveAddressInfo(AddressInfoDto addressInfoDTO) {
-        if (addressInfoDTO != null) {
-            AddressInfo addressInfo = modelMapper.map(addressInfoDTO, AddressInfo.class);
+    private void saveAddressInfo(AddressInfoDto addressInfoDto) {
+        if (addressInfoDto != null) {
+            AddressInfo addressInfo = modelMapper.map(addressInfoDto, AddressInfo.class);
 
         }
     }
 
-    private void saveWorkInformation(WorkInformationDto workInformationDTO, Customer customer) {
-        if (workInformationDTO != null) {
-            WorkInformation workInformation = modelMapper.map(workInformationDTO, WorkInformation.class);
+    private void saveWorkInformation(WorkInformationDto workInformationDto, Customer customer) {
+        if (workInformationDto != null) {
+            WorkInformation workInformation = modelMapper.map(workInformationDto, WorkInformation.class);
             workInformation.setCustomer(customer); // устанавливаем связь с Customer
             workInformationRepository.save(workInformation);
         }
     }
 
-    private void saveCustomer(CustomerDTO customerDTO) {
-        if (customerDTO != null) {
+    private void saveCustomer(CustomerDto customerDto) {
+        if (customerDto != null) {
 
-            Customer customer = modelMapper.map(customerDTO, Customer.class);
+            Customer customer = modelMapper.map(customerDto, Customer.class);
             customerRepository.save(customer);
         }
     }

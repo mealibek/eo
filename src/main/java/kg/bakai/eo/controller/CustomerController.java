@@ -1,10 +1,8 @@
 package kg.bakai.eo.controller;
 
-import kg.bakai.eo.dto.AllDTO;
-import kg.bakai.eo.dto.CustomerDTO;
+import kg.bakai.eo.dto.AllDto;
 import kg.bakai.eo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,18 +22,9 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveCustomer(@Valid @RequestBody AllDTO customerDTO) {
-
-//        try {
-            customerService.saveCustomerData(customerDTO);
-            return ResponseEntity.ok("Customer saved successfully");
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving customer");
-//        }
-
+    public ResponseEntity<String> saveCustomer(@Valid @RequestBody AllDto customerDto) {
+        customerService.saveCustomerData(customerDto);
+        return ResponseEntity.ok("Customer saved successfully");
     }
 }
 
