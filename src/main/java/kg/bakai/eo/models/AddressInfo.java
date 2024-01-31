@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.AddressInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,4 +34,15 @@ public class AddressInfo {
     private String street;
     private String house;
     private String flat;
+
+    public AddressInfo(AddressInfoDto addressInfoDto) {
+        this.id = addressInfoDto.id();
+        this.postalCode = addressInfoDto.postalCode();
+        this.cityId = addressInfoDto.cityId();
+        this.countryId = addressInfoDto.countryId();
+        this.cityName = addressInfoDto.cityName();
+        this.street = addressInfoDto.street();
+        this.house = addressInfoDto.house();
+        this.flat = addressInfoDto.flat();
+    }
 }

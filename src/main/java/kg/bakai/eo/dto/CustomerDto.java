@@ -1,6 +1,8 @@
 package kg.bakai.eo.dto;
 
 
+import kg.bakai.eo.models.AddressInfo;
+
 import java.time.LocalDate;
 
 public record CustomerDto(

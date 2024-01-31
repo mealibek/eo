@@ -1,10 +1,12 @@
 package kg.bakai.eo.dto;
 
+import kg.bakai.eo.models.Customer;
+
 import java.time.LocalDate;
 
 public record WorkInformationDto(
         Long id,
-        Long customerId,
+        Customer customerId,
         String workName,
         String workPosition,
         String workPhone,
@@ -14,7 +16,7 @@ public record WorkInformationDto(
         Integer workAddress,
         LocalDate workStartDate,
         LocalDate workTotalStartDate,
-        Byte hasExtraWork,
+        Boolean hasExtraWork,
         String extraWorkName,
         String extraWorkAddress,
         String extraWorkPosition,

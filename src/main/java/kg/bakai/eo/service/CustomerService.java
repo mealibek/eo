@@ -10,67 +10,48 @@ import kg.bakai.eo.models.Customer;
 import kg.bakai.eo.models.WorkInformation;
 import kg.bakai.eo.repository.CustomerRepository;
 import kg.bakai.eo.repository.WorkInformationRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
-import org.modelmapper.convention.MatchingStrategies;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
+@AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-
     private final WorkInformationRepository workInformationRepository;
 
-    private final ModelMapper modelMapper;
-
-
-    public CustomerService(CustomerRepository customerRepository, WorkInformationRepository workInformationRepository, ModelMapper modelMapper) {
-        this.customerRepository = customerRepository;
-        this.workInformationRepository = workInformationRepository;
-        this.modelMapper = modelMapper;
-
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT)
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
-
-        // Ignore conflicting fields
-        modelMapper.typeMap(AddressInfoDto.class, AddressInfo.class)
-                .addMappings(mapper -> mapper.skip(AddressInfo::setId));
-    }
 
     @Transactional
-    public void saveCustomerData(AllDto customerDto) {
-        Customer customer = modelMapper.map(customerDto.customerDto(), Customer.class);
+    public void saveCustomerData(AllDto allDto) {
+        Customer customer = convertToCustomer(allDto.customer());
         customerRepository.save(customer);
-
-        saveWorkInformation(customerDto.workInformationDto(), customer);
-
-
-    }
-
-    private void saveAddressInfo(AddressInfoDto addressInfoDto) {
-        if (addressInfoDto != null) {
-            AddressInfo addressInfo = modelMapper.map(addressInfoDto, AddressInfo.class);
-
-        }
-    }
-
-    private void saveWorkInformation(WorkInformationDto workInformationDto, Customer customer) {
-        if (workInformationDto != null) {
-            WorkInformation workInformation = modelMapper.map(workInformationDto, WorkInformation.class);
+        WorkInformationDto workInformationDTO = allDto.workInformation();
+        if (workInformationDTO != null) {
+            WorkInformation workInformation = convertToWorkInformation(workInformationDTO);
             workInformation.setCustomer(customer); // устанавливаем связь с Customer
             workInformationRepository.save(workInformation);
         }
     }
 
-    private void saveCustomer(CustomerDto customerDto) {
-        if (customerDto != null) {
 
-            Customer customer = modelMapper.map(customerDto, Customer.class);
-            customerRepository.save(customer);
-        }
+
+
+
+
+  private Customer convertToCustomer(CustomerDto customerDto) {
+        Customer customer = new Customer(customerDto);
+        customer.setResidenceAddress(convertToAddressInfo(customerDto.residenceAddress()));
+        customer.setRegistrationAddress(convertToAddressInfo(customerDto.registrationAddress()));
+        return customer;
     }
 
 
+    private AddressInfo convertToAddressInfo(AddressInfoDto addressInfoDto) {
+        return new AddressInfo(addressInfoDto);
+    }
+
+    private WorkInformation convertToWorkInformation(WorkInformationDto workInformationDto) {
+        return new WorkInformation(workInformationDto);
+    }
 }
