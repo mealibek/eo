@@ -21,6 +21,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final WorkInformationRepository workInformationRepository;
 
+
     @Transactional
     public void saveCustomerData(AllDto allDto) {
         Customer customer = convertToCustomer(allDto.customer());
@@ -33,12 +34,18 @@ public class CustomerService {
         }
     }
 
-    private Customer convertToCustomer(CustomerDto customerDto) {
+
+
+
+
+
+  private Customer convertToCustomer(CustomerDto customerDto) {
         Customer customer = new Customer(customerDto);
         customer.setResidenceAddress(convertToAddressInfo(customerDto.residenceAddress()));
         customer.setRegistrationAddress(convertToAddressInfo(customerDto.registrationAddress()));
         return customer;
     }
+
 
     private AddressInfo convertToAddressInfo(AddressInfoDto addressInfoDto) {
         return new AddressInfo(addressInfoDto);
