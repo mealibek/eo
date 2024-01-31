@@ -1,6 +1,7 @@
     package kg.bakai.eo.models;
 
     import jakarta.persistence.*;
+    import kg.bakai.eo.dto.CustomerDto;
     import lombok.AllArgsConstructor;
     import lombok.Builder;
     import lombok.Data;
@@ -25,10 +26,10 @@
         @Column(name = "customer_type_id")
         private Integer customerTypeId;
 
-        @NotNull
+
         private String surname;
 
-        @NotNull
+
         @Column(name = "customer_name")
         private String customerName;
 
@@ -36,7 +37,7 @@
 
         private Byte sex;
 
-        @NotNull
+
         @Column(name = "identification_number", unique = true)
         private String identificationNumber;
 
@@ -64,4 +65,20 @@
         @OneToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "residence_address_id", referencedColumnName = "id")
         private AddressInfo residenceAddress;
+
+        public Customer(CustomerDto customerDto) {
+            this.customerTypeId = customerDto.customerTypeId();
+            this.surname = customerDto.surname();
+            this.customerName = customerDto.customerName();
+            this.otchestvo = customerDto.otchestvo();
+            this.sex = customerDto.sex();
+            this.identificationNumber = customerDto.identificationNumber();
+            this.nationalityId = customerDto.nationalityId();
+            this.resident = customerDto.resident();
+            this.dateOfBirth = customerDto.dateOfBirth();
+            this.birthCountryId = customerDto.birthCountryId();
+            this.birthCityName = customerDto.birthCityName();
+            this.birthCountryName = customerDto.birthCountryName();
+
+        }
     }

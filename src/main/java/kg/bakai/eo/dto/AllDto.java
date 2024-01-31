@@ -1,14 +1,14 @@
 package kg.bakai.eo.dto;
 
 public record AllDto(
-        CustomerDto customerDto,
-        AddressInfoDto addressInfoDto,
-        BusinessAddressInfoDto businessAddressInfoDto,
-        BusinessInfoDto businessInfoDto,
-        ContactInformationDto contactInformationDto,
-        DocumentInfoDto documentInfoDto,
-        FinancialInfoDto financialInfoDto,
-        PersonalInfoDto personalInfoDto,
-        WorkInformationDto workInformationDto
+        CustomerDto customer,
+
+        BusinessAddressInfoDto businessAddressInfo,
+        BusinessInfoDto businessInfo,
+        ContactInformationDto contactInformation,
+        DocumentInfoDto documentInfo,
+        FinancialInfoDto financialInfo,
+        PersonalInfoDto personalInfo,
+        WorkInformationDto workInformation
 ) {
 }

@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.WorkInformationDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,7 +53,7 @@ public class WorkInformation {
     private LocalDate workTotalStartDate;
 
     @Column(name = "has_extra_work")
-    private Byte hasExtraWork;
+    private boolean hasExtraWork;
 
     @Column(name = "extra_work_name")
     private String extraWorkName;
@@ -77,4 +78,26 @@ public class WorkInformation {
 
     @Column(name = "extra_work_activity_type_id")
     private Integer extraWorkActivityTypeId;
+
+    public WorkInformation(WorkInformationDto workInformationDto) {
+        this.customer =  workInformationDto.customerId();
+        this.workName =  workInformationDto.workName();
+        this.workPosition = workInformationDto.workPosition();
+        this.workPhone =  workInformationDto.workPhone();
+        this.employeesCount = workInformationDto.employeesCount();
+        this.workSalary  = workInformationDto.workSalary();
+        this.workCurrencyId = workInformationDto.workCurrencyId();
+        this.workAddress  = workInformationDto.workAddress();
+        this.workStartDate = workInformationDto.workStartDate();
+        this.workTotalStartDate = workInformationDto.workTotalStartDate();
+        this.hasExtraWork = workInformationDto.hasExtraWork();
+        this.extraWorkName = workInformationDto.extraWorkName();
+        this.extraWorkAddress = workInformationDto.extraWorkAddress();
+        this.extraWorkPosition = workInformationDto.extraWorkPosition();
+        this.extraWorkPhone = workInformationDto.extraWorkPhone();
+        this.extraWorkSalary = workInformationDto.extraWorkSalary();
+        this.extraWorkCurrencyId = workInformationDto.extraWorkCurrencyId();
+        this.extraWorkStartDate = workInformationDto.extraWorkStartDate();
+        this.extraWorkActivityTypeId = workInformationDto.extraWorkActivityTypeId();
+    }
 }
