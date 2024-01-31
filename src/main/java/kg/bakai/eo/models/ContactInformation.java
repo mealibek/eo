@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.ContactInformationDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,4 +40,13 @@ public class ContactInformation {
 
     @Column(name = "email")
     private String email;
+
+    public ContactInformation(ContactInformationDto dto) {
+        this.contactPhone1 = dto.contactPhone1();
+        this.contactPhone2 = dto.contactPhone2();
+        this.contactAddress = dto.contactAddress();
+        this.contactPerson = dto.contactPerson();
+        this.contactPersonPhone = dto.contactPersonPhone();
+        this.email = dto.email();
+    }
 }

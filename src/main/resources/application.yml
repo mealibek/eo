@@ -1,9 +1,9 @@
 # DataSource Configuration
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/
+    url: jdbc:postgresql://localhost:5432/eo
     username: postgres
-    password: 12345
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   # Hibernate Configuration

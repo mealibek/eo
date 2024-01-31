@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.BusinessInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -56,4 +57,18 @@ public class BusinessInfo {
 
     @Column(name = "date_of_registration")
     private LocalDate dateOfRegistration;
+
+    public BusinessInfo(BusinessInfoDto dto) {
+        this.personActivityTypeId = dto.personActivityTypeId();
+        this.isIndividualEntrepreneur = dto.isIndividualEntrepreneur();
+        this.isPrivateEntrepreneur = dto.isPrivateEntrepreneur();
+        this.OKPO = dto.OKPO();
+        this.legalFormId = dto.legalFormId();
+        this.activityTypeId = dto.activityTypeId();
+        this.ownershipTypeId = dto.ownershipTypeId();
+        this.taxOfficeId = dto.taxOfficeId();
+        this.socialRegistrationNo = dto.socialRegistrationNo();
+        this.registrationAuthority = dto.registrationAuthority();
+        this.dateOfRegistration = dto.dateOfRegistration();
+    }
 }

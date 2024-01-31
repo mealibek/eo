@@ -80,14 +80,14 @@ public class WorkInformation {
     private Integer extraWorkActivityTypeId;
 
     public WorkInformation(WorkInformationDto workInformationDto) {
-        this.customer =  workInformationDto.customerId();
-        this.workName =  workInformationDto.workName();
+        this.customer = workInformationDto.customerId();
+        this.workName = workInformationDto.workName();
         this.workPosition = workInformationDto.workPosition();
-        this.workPhone =  workInformationDto.workPhone();
+        this.workPhone = workInformationDto.workPhone();
         this.employeesCount = workInformationDto.employeesCount();
-        this.workSalary  = workInformationDto.workSalary();
+        this.workSalary = workInformationDto.workSalary();
         this.workCurrencyId = workInformationDto.workCurrencyId();
-        this.workAddress  = workInformationDto.workAddress();
+        this.workAddress = workInformationDto.workAddress();
         this.workStartDate = workInformationDto.workStartDate();
         this.workTotalStartDate = workInformationDto.workTotalStartDate();
         this.hasExtraWork = workInformationDto.hasExtraWork();

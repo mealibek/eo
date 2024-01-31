@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.DocumentInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,4 +42,13 @@ public class DocumentInfo {
 
     @Column(name = "document_valid_till")
     private LocalDate documentValidTill;
+
+    public DocumentInfo(DocumentInfoDto dto) {
+        this.documentTypeId = dto.documentTypeId();
+        this.documentSeries = dto.documentSeries();
+        this.documentNo = dto.documentNo();
+        this.issueDate = dto.issueDate();
+        this.issueAuthority = dto.issueAuthority();
+        this.documentValidTill = dto.documentValidTill();
+    }
 }
