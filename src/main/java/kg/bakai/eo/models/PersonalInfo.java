@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.PersonalInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -56,4 +57,18 @@ public class PersonalInfo {
 
     @Column(name = "political_position_id")
     private Integer politicalPositionId;
+
+    public PersonalInfo(PersonalInfoDto dto) {
+        this.familyStatusId = dto.familyStatusId();
+        this.educationTypeId = dto.educationTypeId();
+        this.workTypeId = dto.workTypeId();
+        this.businessAddressRemarks = dto.businessAddressRemarks();
+        this.useBankClient = dto.useBankClient();
+        this.activityNote = dto.activityNote();
+        this.firstRegistrationDate = dto.firstRegistrationDate();
+        this.evidenceRegistrationNo = dto.evidenceRegistrationNo();
+        this.isPoliticalPerson = dto.isPoliticalPerson();
+        this.politicalCountryId = dto.politicalCountryId();
+        this.politicalPositionId = dto.politicalPositionId();
+    }
 }

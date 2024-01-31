@@ -4,6 +4,7 @@ import kg.bakai.eo.dto.AllDto;
 
 import kg.bakai.eo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<String> saveCustomer(@Valid @RequestBody AllDto customerDTO) {
         System.out.println("dav");
         try {
@@ -35,6 +36,5 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving customer");
         }
 
-
+    }
 }
-

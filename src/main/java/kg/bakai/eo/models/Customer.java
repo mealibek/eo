@@ -1,84 +1,80 @@
-    package kg.bakai.eo.models;
+package kg.bakai.eo.models;
 
-    import jakarta.persistence.*;
-    import kg.bakai.eo.dto.CustomerDto;
-    import lombok.AllArgsConstructor;
-    import lombok.Builder;
-    import lombok.Data;
-    import lombok.NoArgsConstructor;
-    import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.persistence.*;
+import kg.bakai.eo.dto.CustomerDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    import java.time.LocalDate;
+import java.time.LocalDate;
 
-    @Entity
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Data
-    @Builder
-    @Table(name = "customers")
-    public class Customer {
-        @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_seq")
-        @SequenceGenerator(name = "customer_id_seq", sequenceName = "customer_id_seq", allocationSize = 1)
-        @Column(name = "customer_id")
-        private Long customerID;
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+@Table(name = "customers")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_seq")
+    @SequenceGenerator(name = "customer_id_seq", sequenceName = "customer_id_seq", allocationSize = 1)
+    @Column(name = "customer_id")
+    private Long customerID;
 
-        @Column(name = "customer_type_id")
-        private Integer customerTypeId;
+    @Column(name = "customer_type_id")
+    private Integer customerTypeId;
 
+    private String surname;
 
-        private String surname;
+    @Column(name = "customer_name")
+    private String customerName;
 
+    private String otchestvo;
 
-        @Column(name = "customer_name")
-        private String customerName;
+    private Byte sex;
 
-        private String otchestvo;
+    @Column(name = "identification_number", unique = true)
+    private String identificationNumber;
 
-        private Byte sex;
+    @Column(name = "nationality_id")
+    private Integer nationalityId;
 
+    private Boolean resident;
 
-        @Column(name = "identification_number", unique = true)
-        private String identificationNumber;
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
-        @Column(name = "nationality_id")
-        private Integer nationalityId;
+    @Column(name = "birth_country_id")
+    private Integer birthCountryId;
 
-        private Boolean resident;
+    @Column(name = "birth_city_name")
+    private String birthCityName;
 
-        @Column(name = "date_of_birth")
-        private LocalDate dateOfBirth;
+    @Column(name = "birth_country_name")
+    private String birthCountryName;
 
-        @Column(name = "birth_country_id")
-        private Integer birthCountryId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "registration_address_id", referencedColumnName = "id")
+    private AddressInfo registrationAddress;
 
-        @Column(name = "birth_city_name")
-        private String birthCityName;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "residence_address_id", referencedColumnName = "id")
+    private AddressInfo residenceAddress;
 
-        @Column(name = "birth_country_name")
-        private String birthCountryName;
+    public Customer(CustomerDto customerDto) {
+        this.customerTypeId = customerDto.customerTypeId();
+        this.surname = customerDto.surname();
+        this.customerName = customerDto.customerName();
+        this.otchestvo = customerDto.otchestvo();
+        this.sex = customerDto.sex();
+        this.identificationNumber = customerDto.identificationNumber();
+        this.nationalityId = customerDto.nationalityId();
+        this.resident = customerDto.resident();
+        this.dateOfBirth = customerDto.dateOfBirth();
+        this.birthCountryId = customerDto.birthCountryId();
+        this.birthCityName = customerDto.birthCityName();
+        this.birthCountryName = customerDto.birthCountryName();
 
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "registration_address_id", referencedColumnName = "id")
-        private AddressInfo registrationAddress;
-
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "residence_address_id", referencedColumnName = "id")
-        private AddressInfo residenceAddress;
-
-        public Customer(CustomerDto customerDto) {
-            this.customerTypeId = customerDto.customerTypeId();
-            this.surname = customerDto.surname();
-            this.customerName = customerDto.customerName();
-            this.otchestvo = customerDto.otchestvo();
-            this.sex = customerDto.sex();
-            this.identificationNumber = customerDto.identificationNumber();
-            this.nationalityId = customerDto.nationalityId();
-            this.resident = customerDto.resident();
-            this.dateOfBirth = customerDto.dateOfBirth();
-            this.birthCountryId = customerDto.birthCountryId();
-            this.birthCityName = customerDto.birthCityName();
-            this.birthCountryName = customerDto.birthCountryName();
-
-        }
     }
+}

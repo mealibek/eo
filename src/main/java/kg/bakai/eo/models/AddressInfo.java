@@ -36,7 +36,6 @@ public class AddressInfo {
     private String flat;
 
     public AddressInfo(AddressInfoDto addressInfoDto) {
-        this.id = addressInfoDto.id();
         this.postalCode = addressInfoDto.postalCode();
         this.cityId = addressInfoDto.cityId();
         this.countryId = addressInfoDto.countryId();

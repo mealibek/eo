@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.FinancialInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -76,5 +77,25 @@ public class FinancialInfo {
 
     @Column(name = "legal_document_id")
     private Byte legalDocumentId;
-}
 
+    public FinancialInfo(FinancialInfoDto dto) {
+        this.originOfFundsComment = dto.originOfFundsComment();
+        this.originOfFundsTypeId = dto.originOfFundsTypeId();
+        this.useOnlineStatement = dto.useOnlineStatement();
+        this.beneficiaryId = dto.beneficiaryId();
+        this.isFinancialCompany = dto.isFinancialCompany();
+        this.isExchangeOffice = dto.isExchangeOffice();
+        this.highRiskReasonComment = dto.highRiskReasonComment();
+        this.isAllowSmsReceive = dto.isAllowSmsReceive();
+        this.isAllowMarketingReceive = dto.isAllowMarketingReceive();
+        this.fatcaCriteon = dto.fatcaCriteon();
+        this.clientType = dto.clientType();
+        this.customerReasonAvayId = dto.customerReasonAvayId();
+        this.codeName = dto.codeName();
+        this.receiveLanguage = dto.receiveLanguage();
+        this.isOwnerResidence = dto.isOwnerResidence();
+        this.isAllowToCIBSend = dto.isAllowToCIBSend();
+        this.isDocUnlimited = dto.isDocUnlimited();
+        this.legalDocumentId = dto.legalDocumentId();
+    }
+}

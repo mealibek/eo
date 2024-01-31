@@ -1,6 +1,7 @@
 package kg.bakai.eo.models;
 
 import jakarta.persistence.*;
+import kg.bakai.eo.dto.BusinessAddressInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,5 +51,16 @@ public class BusinessAddressInfo {
 
     @Column(name = "partners_count")
     private Integer partnersCount;
-}
 
+    public BusinessAddressInfo(BusinessAddressInfoDto dto) {
+        this.businessCityId = dto.businessCityId();
+        this.businessCountryId = dto.businessCountryId();
+        this.businessCityName = dto.businessCityName();
+        this.businessStreet = dto.businessStreet();
+        this.businessHouse = dto.businessHouse();
+        this.businessFlat = dto.businessFlat();
+        this.businessPostalCode = dto.businessPostalCode();
+        this.startBusinessDate = dto.startBusinessDate();
+        this.partnersCount = dto.partnersCount();
+    }
+}
