@@ -80,7 +80,6 @@ public class WorkInformation {
     private Integer extraWorkActivityTypeId;
 
     public WorkInformation(WorkInformationDto workInformationDto) {
-        this.customer = workInformationDto.customerId();
         this.workName = workInformationDto.workName();
         this.workPosition = workInformationDto.workPosition();
         this.workPhone = workInformationDto.workPhone();

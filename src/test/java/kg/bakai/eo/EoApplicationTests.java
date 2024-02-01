@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class EoApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void demoTestMethod() {
 	}
 
 }
