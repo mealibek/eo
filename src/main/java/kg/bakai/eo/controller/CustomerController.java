@@ -1,9 +1,9 @@
 package kg.bakai.eo.controller;
 
 import kg.bakai.eo.dto.AllDto;
-
 import kg.bakai.eo.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +15,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/customers")
+@RequiredArgsConstructor
 public class CustomerController {
-    private final CustomerService customerService;
 
-    @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private final CustomerService customerService;
 
     @PostMapping
     public ResponseEntity<String> saveCustomer(@Valid @RequestBody AllDto customerDTO) {

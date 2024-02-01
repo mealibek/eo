@@ -30,15 +30,14 @@ import java.util.function.Function;
 @Service
 @AllArgsConstructor
 public class CustomerService {
+
     private final CustomerRepository customerRepository;
     private final WorkInformationRepository workInformationRepository;
     private final BusinessAddressInfoRepository businessAddressInfoRepository;
     private final DocumentInfoRepository documentInfoRepository;
-
     private final BusinessInfoRepository businessInfoRepository;
     private final ContactInformationRepository contactInformationRepository;
     private final FinancialInfoRepository financialInfoRepository;
-
     private final PersonalInfoRepository personalInfoRepository;
 
     @Transactional
@@ -47,12 +46,14 @@ public class CustomerService {
         customerRepository.save(customer);
 
         saveEntityWithCustomer(allDto.workInformation(), this::convertToWorkInformation, workInformationRepository);
-        saveEntityWithCustomer(allDto.businessAddressInfo(), this::convertToBusinessAddressInfo, businessAddressInfoRepository);
+        saveEntityWithCustomer(allDto.businessAddressInfo(), this::convertToBusinessAddressInfo,
+                businessAddressInfoRepository);
         saveEntityWithCustomer(allDto.documentInfo(), this::convertToDocumentInfo, documentInfoRepository);
         saveEntityWithCustomer(allDto.businessInfo(), this::convertToBusinessInfo, businessInfoRepository);
         saveEntityWithCustomer(allDto.financialInfo(), this::convertToFinancialInfo, financialInfoRepository);
         saveEntityWithCustomer(allDto.personalInfo(), this::convertToPersonalInfo, personalInfoRepository);
-        saveEntityWithCustomer(allDto.contactInformation(), this::convertToContactInformation, contactInformationRepository);
+        saveEntityWithCustomer(allDto.contactInformation(), this::convertToContactInformation,
+                contactInformationRepository);
     }
 
     private <T, D> void saveEntityWithCustomer(D entityDto, Function<D, T> converter, JpaRepository<T, ?> repository) {
@@ -62,43 +63,42 @@ public class CustomerService {
         }
     }
 
-
-    private Customer convertToCustomer(CustomerDto customerDto) {
+    public Customer convertToCustomer(CustomerDto customerDto) {
         Customer customer = new Customer(customerDto);
         customer.setResidenceAddress(convertToAddressInfo(customerDto.residenceAddress()));
         customer.setRegistrationAddress(convertToAddressInfo(customerDto.registrationAddress()));
         return customer;
     }
 
-    private AddressInfo convertToAddressInfo(AddressInfoDto addressInfoDto) {
+    public AddressInfo convertToAddressInfo(AddressInfoDto addressInfoDto) {
         return new AddressInfo(addressInfoDto);
     }
 
-    private WorkInformation convertToWorkInformation(WorkInformationDto workInformationDto) {
+    public WorkInformation convertToWorkInformation(WorkInformationDto workInformationDto) {
         return new WorkInformation(workInformationDto);
     }
 
-    private BusinessAddressInfo convertToBusinessAddressInfo(BusinessAddressInfoDto businessAddressInfoDto) {
+    public BusinessAddressInfo convertToBusinessAddressInfo(BusinessAddressInfoDto businessAddressInfoDto) {
         return new BusinessAddressInfo(businessAddressInfoDto);
     }
 
-    private BusinessInfo convertToBusinessInfo(BusinessInfoDto businessInfoDto) {
+    public BusinessInfo convertToBusinessInfo(BusinessInfoDto businessInfoDto) {
         return new BusinessInfo(businessInfoDto);
     }
 
-    private ContactInformation convertToContactInformation(ContactInformationDto contactInformationDto) {
+    public ContactInformation convertToContactInformation(ContactInformationDto contactInformationDto) {
         return new ContactInformation(contactInformationDto);
     }
 
-    private DocumentInfo convertToDocumentInfo(DocumentInfoDto documentInfoDto) {
+    public DocumentInfo convertToDocumentInfo(DocumentInfoDto documentInfoDto) {
         return new DocumentInfo(documentInfoDto);
     }
 
-    private FinancialInfo convertToFinancialInfo(FinancialInfoDto financialInfoDto) {
+    public FinancialInfo convertToFinancialInfo(FinancialInfoDto financialInfoDto) {
         return new FinancialInfo(financialInfoDto);
     }
 
-    private PersonalInfo convertToPersonalInfo(PersonalInfoDto personalInfoDto) {
+    public PersonalInfo convertToPersonalInfo(PersonalInfoDto personalInfoDto) {
         return new PersonalInfo(personalInfoDto);
     }
 }
