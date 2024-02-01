@@ -20,28 +20,48 @@ import kg.bakai.eo.models.DocumentInfo;
 import kg.bakai.eo.models.FinancialInfo;
 import kg.bakai.eo.models.PersonalInfo;
 import kg.bakai.eo.models.WorkInformation;
-import kg.bakai.eo.repository.CustomerRepository;
-import kg.bakai.eo.repository.WorkInformationRepository;
+import kg.bakai.eo.repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final WorkInformationRepository workInformationRepository;
+    private final BusinessAddressInfoRepository businessAddressInfoRepository;
+    private final DocumentInfoRepository documentInfoRepository;
+
+    private final BusinessInfoRepository businessInfoRepository;
+    private final ContactInformationRepository contactInformationRepository;
+    private final FinancialInfoRepository financialInfoRepository;
+
+    private final PersonalInfoRepository personalInfoRepository;
 
     @Transactional
     public void saveCustomerData(AllDto allDto) {
         Customer customer = convertToCustomer(allDto.customer());
         customerRepository.save(customer);
-        WorkInformationDto workInformationDTO = allDto.workInformation();
-        if (workInformationDTO != null) {
-            WorkInformation workInformation = convertToWorkInformation(workInformationDTO);
-            workInformation.setCustomer(customer); // устанавливаем связь с Customer
-            workInformationRepository.save(workInformation);
+
+        saveEntityWithCustomer(allDto.workInformation(), this::convertToWorkInformation, workInformationRepository);
+        saveEntityWithCustomer(allDto.businessAddressInfo(), this::convertToBusinessAddressInfo, businessAddressInfoRepository);
+        saveEntityWithCustomer(allDto.documentInfo(), this::convertToDocumentInfo, documentInfoRepository);
+        saveEntityWithCustomer(allDto.businessInfo(), this::convertToBusinessInfo, businessInfoRepository);
+        saveEntityWithCustomer(allDto.financialInfo(), this::convertToFinancialInfo, financialInfoRepository);
+        saveEntityWithCustomer(allDto.personalInfo(), this::convertToPersonalInfo, personalInfoRepository);
+        saveEntityWithCustomer(allDto.contactInformation(), this::convertToContactInformation, contactInformationRepository);
+    }
+
+    private <T, D> void saveEntityWithCustomer(D entityDto, Function<D, T> converter, JpaRepository<T, ?> repository) {
+        if (entityDto != null) {
+            T entity = converter.apply(entityDto);
+            repository.save(entity);
         }
     }
+
 
     private Customer convertToCustomer(CustomerDto customerDto) {
         Customer customer = new Customer(customerDto);
