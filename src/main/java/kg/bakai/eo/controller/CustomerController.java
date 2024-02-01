@@ -25,7 +25,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<String> saveCustomer(@Valid @RequestBody AllDto customerDTO) {
-        System.out.println("dav");
+        System.out.println(customerDTO);
         try {
             customerService.saveCustomerData(customerDTO);
             return ResponseEntity.ok("Customer saved successfully");
