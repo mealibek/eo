@@ -22,6 +22,7 @@ import kg.bakai.eo.models.PersonalInfo;
 import kg.bakai.eo.models.WorkInformation;
 import kg.bakai.eo.repository.*;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +40,14 @@ public class CustomerService {
     private final ContactInformationRepository contactInformationRepository;
     private final FinancialInfoRepository financialInfoRepository;
     private final PersonalInfoRepository personalInfoRepository;
+    private final ModelMapper modelMapper;
 
     @Transactional
     public void saveCustomerData(AllDto allDto) {
+        if (allDto == null) {
+            throw new IllegalArgumentException("allDto cannot be null");
+        }
+
         Customer customer = convertToCustomer(allDto.customer());
         customerRepository.save(customer);
 
@@ -60,6 +66,40 @@ public class CustomerService {
         if (entityDto != null) {
             T entity = converter.apply(entityDto);
             repository.save(entity);
+        }
+    }
+
+    public Customer findByIdentificationNumber(String identificationNumber) {
+        Customer customer = customerRepository.findByIdentificationNumber(identificationNumber);
+        if (customer != null) {
+            return customer;
+        } else {
+            return null;
+        }
+    }
+
+    public Customer findByFullName(String surname, String customerName, String otchestvo) {
+        // Валидация входных параметров
+        if (surname == null && customerName == null && otchestvo == null) {
+            return null; // Возвращаем null, так как нет критериев для поиска
+        }
+        // Логика поиска клиента по ФИО
+        if (surname != null && customerName != null && otchestvo != null) {
+            return customerRepository.findBySurnameAndCustomerNameAndOtchestvo(surname, customerName, otchestvo);
+        } else if (surname != null && customerName != null) {
+            return customerRepository.findBySurnameAndCustomerName(surname, customerName);
+        } else if (customerName != null && otchestvo != null) {
+            return customerRepository.findByCustomerNameAndOtchestvo(customerName, otchestvo);
+        } else if (surname != null && otchestvo != null) {
+            return customerRepository.findBySurnameAndOtchestvo(surname, otchestvo);
+        } else if (surname != null) {
+            return customerRepository.findBySurname(surname);
+        } else if (customerName != null) {
+            return customerRepository.findByCustomerName(customerName);
+        } else if (otchestvo != null) {
+            return customerRepository.findByOtchestvo(otchestvo);
+        } else {
+            return null; // Возвращаем null, так как нет критериев для поиска
         }
     }
 
