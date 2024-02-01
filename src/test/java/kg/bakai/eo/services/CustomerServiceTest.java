@@ -1,5 +1,6 @@
 package kg.bakai.eo.services;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -80,11 +81,11 @@ public class CustomerServiceTest {
 
     @Test
     public void saveCustomerData_WithNullAllDto() {
-        // Test when AllDto is null
-        customerService.saveCustomerData(null);
-
-        verifyNoRepositoryInteractions();
+        assertThrows(IllegalArgumentException.class, () -> {
+            customerService.saveCustomerData(null);
+        });
     }
+
 
     private void verifyRepositories() {
         verify(customerRepository, times(1)).save(any(Customer.class));

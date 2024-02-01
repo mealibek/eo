@@ -44,6 +44,10 @@ public class CustomerService {
 
     @Transactional
     public void saveCustomerData(AllDto allDto) {
+        if (allDto == null) {
+            throw new IllegalArgumentException("allDto cannot be null");
+        }
+
         Customer customer = convertToCustomer(allDto.customer());
         customerRepository.save(customer);
 
