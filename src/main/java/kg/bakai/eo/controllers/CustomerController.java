@@ -27,13 +27,7 @@ public class CustomerController {
     @GetMapping("/findByIdentificationNumber/{identificationNumber}")
     public ResponseEntity<Customer> findByIdentificationNumber(@PathVariable String identificationNumber) {
         Customer customer = customerService.findByIdentificationNumber(identificationNumber);
-
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-
+        return ResponseEntity.ok(customer);
     }
 
     @GetMapping("/findByFullName")
@@ -43,11 +37,6 @@ public class CustomerController {
             @RequestParam(required = false) String otchestvo) {
 
         Customer customer = customerService.findByFullName(surname, customerName, otchestvo);
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
+        return ResponseEntity.ok(customer);
     }
 }
