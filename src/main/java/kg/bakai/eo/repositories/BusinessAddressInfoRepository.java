@@ -1,4 +1,4 @@
-package kg.bakai.eo.repository;
+package kg.bakai.eo.repositories;
 
 import kg.bakai.eo.models.BusinessAddressInfo;
 import org.springframework.data.jpa.repository.JpaRepository;

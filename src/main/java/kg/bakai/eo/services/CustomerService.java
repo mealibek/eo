@@ -1,4 +1,4 @@
-package kg.bakai.eo.service;
+package kg.bakai.eo.services;
 
 import jakarta.transaction.Transactional;
 import kg.bakai.eo.dto.AddressInfoDto;
@@ -20,7 +20,8 @@ import kg.bakai.eo.models.DocumentInfo;
 import kg.bakai.eo.models.FinancialInfo;
 import kg.bakai.eo.models.PersonalInfo;
 import kg.bakai.eo.models.WorkInformation;
-import kg.bakai.eo.repository.*;
+import kg.bakai.eo.repositories.*;
+import kg.bakai.eo.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -40,7 +41,6 @@ public class CustomerService {
     private final ContactInformationRepository contactInformationRepository;
     private final FinancialInfoRepository financialInfoRepository;
     private final PersonalInfoRepository personalInfoRepository;
-    private final ModelMapper modelMapper;
 
     @Transactional
     public void saveCustomerData(AllDto allDto) {
@@ -70,7 +70,9 @@ public class CustomerService {
     }
 
     public Customer findByIdentificationNumber(String identificationNumber) {
-        Customer customer = customerRepository.findByIdentificationNumber(identificationNumber);
+        Customer customer = customerRepository.findByIdentificationNumber(identificationNumber)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
+
         if (customer != null) {
             return customer;
         } else {
@@ -83,21 +85,30 @@ public class CustomerService {
         if (surname == null && customerName == null && otchestvo == null) {
             return null; // Возвращаем null, так как нет критериев для поиска
         }
+
         // Логика поиска клиента по ФИО
         if (surname != null && customerName != null && otchestvo != null) {
-            return customerRepository.findBySurnameAndCustomerNameAndOtchestvo(surname, customerName, otchestvo);
+            return customerRepository
+                    .findBySurnameAndCustomerNameAndOtchestvo(surname, customerName, otchestvo)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else if (surname != null && customerName != null) {
-            return customerRepository.findBySurnameAndCustomerName(surname, customerName);
+            return customerRepository.findBySurnameAndCustomerName(surname, customerName)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else if (customerName != null && otchestvo != null) {
-            return customerRepository.findByCustomerNameAndOtchestvo(customerName, otchestvo);
+            return customerRepository.findByCustomerNameAndOtchestvo(customerName, otchestvo)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else if (surname != null && otchestvo != null) {
-            return customerRepository.findBySurnameAndOtchestvo(surname, otchestvo);
+            return customerRepository.findBySurnameAndOtchestvo(surname, otchestvo)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else if (surname != null) {
-            return customerRepository.findBySurname(surname);
+            return customerRepository.findBySurname(surname)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else if (customerName != null) {
-            return customerRepository.findByCustomerName(customerName);
+            return customerRepository.findByCustomerName(customerName)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else if (otchestvo != null) {
-            return customerRepository.findByOtchestvo(otchestvo);
+            return customerRepository.findByOtchestvo(otchestvo)
+                    .orElseThrow(() -> new NotFoundException("Customer not found"));
         } else {
             return null; // Возвращаем null, так как нет критериев для поиска
         }

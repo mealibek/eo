@@ -30,15 +30,15 @@ import kg.bakai.eo.models.DocumentInfo;
 import kg.bakai.eo.models.FinancialInfo;
 import kg.bakai.eo.models.PersonalInfo;
 import kg.bakai.eo.models.WorkInformation;
-import kg.bakai.eo.repository.BusinessAddressInfoRepository;
-import kg.bakai.eo.repository.BusinessInfoRepository;
-import kg.bakai.eo.repository.ContactInformationRepository;
-import kg.bakai.eo.repository.CustomerRepository;
-import kg.bakai.eo.repository.DocumentInfoRepository;
-import kg.bakai.eo.repository.FinancialInfoRepository;
-import kg.bakai.eo.repository.PersonalInfoRepository;
-import kg.bakai.eo.repository.WorkInformationRepository;
-import kg.bakai.eo.service.CustomerService;
+import kg.bakai.eo.repositories.BusinessAddressInfoRepository;
+import kg.bakai.eo.repositories.BusinessInfoRepository;
+import kg.bakai.eo.repositories.ContactInformationRepository;
+import kg.bakai.eo.repositories.CustomerRepository;
+import kg.bakai.eo.repositories.DocumentInfoRepository;
+import kg.bakai.eo.repositories.FinancialInfoRepository;
+import kg.bakai.eo.repositories.PersonalInfoRepository;
+import kg.bakai.eo.repositories.WorkInformationRepository;
+import kg.bakai.eo.services.CustomerService;
 
 @SpringBootTest
 public class CustomerServiceTest {
@@ -85,7 +85,6 @@ public class CustomerServiceTest {
             customerService.saveCustomerData(null);
         });
     }
-
 
     private void verifyRepositories() {
         verify(customerRepository, times(1)).save(any(Customer.class));
