@@ -23,7 +23,6 @@ import kg.bakai.eo.models.WorkInformation;
 import kg.bakai.eo.repositories.*;
 import kg.bakai.eo.utils.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

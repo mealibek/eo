@@ -38,7 +38,6 @@ import kg.bakai.eo.repositories.DocumentInfoRepository;
 import kg.bakai.eo.repositories.FinancialInfoRepository;
 import kg.bakai.eo.repositories.PersonalInfoRepository;
 import kg.bakai.eo.repositories.WorkInformationRepository;
-import kg.bakai.eo.services.CustomerService;
 
 @SpringBootTest
 public class CustomerServiceTest {
