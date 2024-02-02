@@ -96,16 +96,18 @@ public class CustomerServiceTest {
         verify(personalInfoRepository, times(1)).save(any(PersonalInfo.class));
     }
 
-    private void verifyNoRepositoryInteractions() {
-        verify(customerRepository, times(0)).save(any(Customer.class));
-        verify(workInformationRepository, times(0)).save(any(WorkInformation.class));
-        verify(businessAddressInfoRepository, times(0)).save(any(BusinessAddressInfo.class));
-        verify(documentInfoRepository, times(0)).save(any(DocumentInfo.class));
-        verify(businessInfoRepository, times(0)).save(any(BusinessInfo.class));
-        verify(contactInformationRepository, times(0)).save(any(ContactInformation.class));
-        verify(financialInfoRepository, times(0)).save(any(FinancialInfo.class));
-        verify(personalInfoRepository, times(0)).save(any(PersonalInfo.class));
-    }
+    // private void verifyNoRepositoryInteractions() {
+    // verify(customerRepository, times(0)).save(any(Customer.class));
+    // verify(workInformationRepository, times(0)).save(any(WorkInformation.class));
+    // verify(businessAddressInfoRepository,
+    // times(0)).save(any(BusinessAddressInfo.class));
+    // verify(documentInfoRepository, times(0)).save(any(DocumentInfo.class));
+    // verify(businessInfoRepository, times(0)).save(any(BusinessInfo.class));
+    // verify(contactInformationRepository,
+    // times(0)).save(any(ContactInformation.class));
+    // verify(financialInfoRepository, times(0)).save(any(FinancialInfo.class));
+    // verify(personalInfoRepository, times(0)).save(any(PersonalInfo.class));
+    // }
 
     private AllDto createMockAllDto() {
         return new AllDto(

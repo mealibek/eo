@@ -5,7 +5,6 @@ import kg.bakai.eo.models.Customer;
 import kg.bakai.eo.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
